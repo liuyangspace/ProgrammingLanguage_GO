@@ -5,10 +5,22 @@ import "time"
 /*
 
 协程
-	go关键字: 协程通过使用关键字 go 调用（执行）一个函数或者方法来实现的（也可以是匿名或者 lambda 函数）。
+	go关键字: 协程通过使用关键字 go 调用（执行）一个函数或者方法来实现的（也可以是匿名或者 lambda 函数）
+	format:
+		//go 关键字放在方法调用前新建一个 goroutine 并执行方法体
+		go GetThingDone(param1, param2);
+		//新建一个匿名方法并执行
+		go func(param1, param2) {
+		}(val1, val2)
+		//直接新建一个 goroutine 并在 goroutine 中执行代码块
+		go {
+			//do someting...
+		}
+	配置:
+		runtime.GOMAXPROCS() // 配置并行执行比较适合适合于CPU密集型、并行度比较高的情景，如果是IO密集型使用多核的化会增加cpu切换带来的性能损失。
 	chan关键字: 通常可以使用如下格式来声明通道：
 		# 未初始化的通道的值是nil。
-		var identifier chan dataType	//无缓冲同步通道,e.g: var ch1 chan string
+		var identifier chan dataType	// 无缓冲同步通道,e.g: var ch1 chan string
 		var send_only chan<- int 		// channel can only receive data
 		var recv_only <-chan int		// channel can only send data
 		var identifier = make(chan dataType)	//无缓冲同步通道，e.g: ch1 := make(chan string),funcChan := make(chan func())
